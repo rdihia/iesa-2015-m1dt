@@ -4,8 +4,13 @@
 	    <meta charset="utf-8" />
 	    <title>Geolocalisation</title>
         <script>
+		    function myPosition(position){
+		        alert(position.coords.latitude);
+                alert(position.coords.longitude);
+                alert(position.coords.altitude);				
+					}
             if (navigator.geolocation) {
-		        alert ('L\' API de geolocalisation en HTML5 est disponible');
+		        navigator.geolocation.getCurrentPosition(myPosition);
 			    } else {
 			    alert ("Le navigateur ne prend pas en compte la geolocalisation HTML5");
 				}
