@@ -9,16 +9,18 @@
 				geoInfos += "Latitude : "+ position.coords.latitude +"<br />";
 				geoInfos += "Longitude : "+ position.coords.longitude +"<br />";
 				geoInfos += "Altitude : "+ position.coords.altitude +"<br />";
+				getInfos += "Vitesse : "+ position.coords.speed +"<br />";
 				document.getElementById ("geolocation").innerHTML = geoInfos;
 				}
             if (navigator.geolocation) {
-		        navigator.geolocation.getCurrentPosition(myPosition);
+		        //navigator.geolocation.getCurrentPosition(myPosition);
+				navigator.geolocation.watchPosition(myPosition);
 			    } else {
 			    alert ("Le navigateur ne prend pas en compte la geolocalisation HTML5");
 				}
         </script>
     </head>
 	<body>
-	<div id="geolocation">
+	<div id="geolocation">geoloc...</div>
 	</body>
 </html>
