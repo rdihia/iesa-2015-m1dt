@@ -5,7 +5,11 @@
 	    <title>Geolocalisation</title>
         <script>
 		    function myPosition(position){
-		        alert('latitude : ' + position.coords.latitude + ' Longitude : ' + position.coords.longitude + ' Altitude : ' + position.coords.altitude);				
+		        var geoInfos = "Position déterminée :<br />";
+				geoInfos += "Latitude : "+ position.coords.latitude +"<br />";
+				geoInfos += "Longitude : "+ position.coords.longitude +"<br />";
+				geoInfos += "Altitude : "+ position.coords.altitude +"<br />";
+				document.getElementById ("geolocation").innerHTML = geoInfos;
 				}
             if (navigator.geolocation) {
 		        navigator.geolocation.getCurrentPosition(myPosition);
@@ -14,5 +18,7 @@
 				}
         </script>
     </head>
-	<body></body>
+	<body>
+	<div id="geolocation">
+	</body>
 </html>
