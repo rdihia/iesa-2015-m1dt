@@ -1,26 +1,77 @@
-<!doctype html>
-<html lang "fr">
-    <head>
-	    <meta charset="utf-8" />
-	    <title>Geolocalisation</title>
-        <script>
-		    function myPosition(position){
-		        var geoInfos = "Position déterminée :<br />";
-				geoInfos += "Latitude : "+ position.coords.latitude +"<br />";
-				geoInfos += "Longitude : "+ position.coords.longitude +"<br />";
-				geoInfos += "Altitude : "+ position.coords.altitude +"<br />";
-				getInfos += "Vitesse : "+ position.coords.speed +"<br />";
-				document.getElementById ("geolocation").innerHTML = geoInfos;
-				}
-            if (navigator.geolocation) {
-		        //navigator.geolocation.getCurrentPosition(myPosition);
-				navigator.geolocation.watchPosition(myPosition);
-			    } else {
-			    alert ("Le navigateur ne prend pas en compte la geolocalisation HTML5");
-				}
-        </script>
-    </head>
-	<body>
-	<div id="geolocation">geoloc...</div>
-	</body>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<title>Geolocalisation Cours Developpement IESAMulitimédia</title>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=set_to_true_or_false"></script>
+	<script>
+	// Defaut location -> Chatelet
+	var centerpos = new google.maps.LatLng(48.579400, 7.7519);
+	var optionsGmaps = {
+		center: centerpos,
+		mapTypeId: google.maps.MapTypeId.ROADMAP,
+		zoom: 15
+	};
+	var map = new google.maps.Map(document.getElementById("map"), optionsGmaps);
+	function myPosition(position) {
+		var infoGeoloc = "Lattitude : " + position.coords.latitude;
+		infoGeoloc += "<br />Longitude : " + position.coords.longitude;
+		infoGeoloc += "<br />Altitude : " + position.coords.altitude;
+		document.getElementById("localisation").innerHTML = infoGeoloc;
+	}
+	function displayPosition(position) {
+		var infoPosition = "Lattitude : " + position.coords.latitude;
+		infoPosition += "<br />Longitude : " + position.coords.longitude;
+		infoPosition += "<br />Altitude : " + position.coords.altitude;
+		infoPosition += "<br />Vitesse : " + position.coords.speed;
+		
+		document.getElementById("localisation").innerHTML = infoPosition;
+	}
+	function showError(error) {
+		switch(error.code) {
+		    case error.PERMISSION_DENIED:
+		        alert("Vous n'avez pas autorisé la geolocalisation sur votre navigateur.");
+		        break;
+		    case error.POSITION_UNAVAILABLE:
+		        alert("Votre position n'est pas disponible.");
+		        break;
+		    case error.TIMEOUT:
+		        alert("La position n'a pu être déterminée.");
+		        break;
+		    default:
+		        alert("Erreur inconnnue");
+		}
+	}
+	if(navigator.geolocation){
+		//alert('L\'API de geolocalisation en HTML est disponible');
+		//navigator.geolocation.getCurrentPosition(getMyPosition);
+		navigator.geolocation.watchPosition(displayPosition, showError);
+	} else {
+		document.getElementById("localisation").innerHTML = "Votre navigateur ne prend pas en compte la géolocalisation HTML5";
+	}
+	</script>
+	<style>
+		body {
+			font-family: Arial, Helvetica, sans-serif;
+			text-align: center;
+		}
+		#localisation, #localisation2 {
+			background: tomato;
+			font-weight: bold;
+			color: #fff;
+			display: inline-block;
+			padding: 20px;
+		}
+		#map {
+			width: 780px;
+			height: 400px;
+			margin: 20px auto;
+		}
+	</style>
+</head>
+<body>
+	<h2>Ma géolocalisation</h2>
+	<p id="localisation">Zone de présentation des informations de géolocalisation.</p>
+	<div id="map"></div>
+</body>
 </html>
